@@ -30,3 +30,21 @@ app.config(function($routeProvider, $locationProvider) {
 
 		//$locationProvider.html5Mode(true);
 });
+
+var MyHelper = MyHelper || {};
+
+MyHelper.helpers = {
+	showBtn: function(selector) {
+		$(selector).css("opacity", 1).removeAttr("disabled");
+	},
+
+	hideBtn: function(selector) {
+		$(selector).css("opacity", 0).attr("disabled", "disabled");
+	},
+
+	goTo: function(offset) {
+		$('html, body').animate({
+			scrollTop: offset + "px"
+		}, "fast");
+	}
+};

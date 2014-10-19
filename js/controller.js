@@ -1,5 +1,6 @@
 app.controller("MainController", function($rootScope, $scope, $http, $location) {
 
+	$scope.helpers = MyHelper.helpers;
 	$rootScope.title = "About Me";
 
 	/* Menu Elements */
@@ -107,45 +108,52 @@ app.controller("MainController", function($rootScope, $scope, $http, $location) 
 			default:
 				$location.path(url);
 		}
-		//console.log($location.path());
 	}
 
 	$scope.selected = function(url) {
-		//console.log($location.path() + ' ' + url);
-		if($location.path().substring(1) == url) {
-			return "selected";
-		}
-		else {
-			return "";
-		}
+		if($location.path().substring(1) == url) { return "selected"; }
+		else { return ""; }
 	}
 
 	var d = new Date();
 	$scope.year = d.getFullYear();
 
-	$scope.position = 0;
-	$scope.section = ["intro", "skill", "exp"];
+	var section = ["intro", "skill", "exp"];
+	var current = 0, target = 0, last = 0, middle = 0;
+
+	$(window).scroll(function() {
+
+		if(last == 0) {
+			last = $("#"+section[section.length-1]).offset().top;
+		}
+		current = $(document).scrollTop();
+
+		if(current <= 10) { $scope.helpers.hideBtn("#scroll-up"); }
+		else if(current >= last) { $scope.helpers.hideBtn("#scroll-down"); }
+		else { $scope.helpers.showBtn("#scroll button"); }
+		
+	});
 
 	$scope.scroll = function(direction) {
 		
-		$scope.position = (direction == "up") ? $scope.position - 1 : $scope.position + 1;
-		if($scope.position <= 0) {
-			$("#scroll").find("#scroll-up").fadeTo("slow", 0).attr('disabled','disabled');
+		if(middle == 0) {
+			middle = $("#"+section[1]).offset().top;
+		}
+		current = $(document).scrollTop();
 
-			$scope.position = 0;
+		if(current > last) { $scope.helpers.goTo(last); }
+		else if(current > middle) {
+			if(direction == "up") $scope.helpers.goTo(middle);
+			else $scope.helpers.goTo(last);
 		}
-		else if($scope.position >= $scope.section.length-1) {
-			$("#scroll").find("#scroll-down").fadeTo("slow", 0).attr('disabled','disabled');
-			$scope.position = $scope.section.length - 1;
+		else if(current > 10) {
+			if(direction == "up") $scope.helpers.goTo(0);
+			else {
+				if(current == middle) $scope.helpers.goTo(last);
+				else $scope.helpers.goTo(middle);
+			}
 		}
-		else {
-			$("#scroll").find("button").fadeTo("slow", 1).removeAttr('disabled');
-		}
-
-		var offset = ($scope.position == 0) ? 0 : $("#"+$scope.section[$scope.position]).offset().top;
-		$('html, body').animate({
-			scrollTop: offset + "px"
-		}, "slow");
+		else { $scope.helpers.goTo(middle); }
 	}
 
 });
