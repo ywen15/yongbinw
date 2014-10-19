@@ -1,3 +1,4 @@
+/*** Main Controller ***/
 app.controller("MainController", function($rootScope, $scope, $http, $location) {
 
 	$scope.helpers = MyHelper.helpers;
@@ -30,6 +31,34 @@ app.controller("MainController", function($rootScope, $scope, $http, $location) 
 		icon: "fa-envelope-o"
 	}];
 
+	$scope.href = function(url) {
+		switch(url) {
+			case "linkedin": 
+				window.open("http://ca.linkedin.com/pub/yongbin-wen/a4/aa0/360/", "_blank");
+				break;
+			case "github": 
+				window.open("http://github.com/ywen15", "_blank");
+				break;
+			case "email":
+				window.open("mailto:wen.yb15@gmail.com", "_self");
+				break;
+			default:
+				$location.path(url);
+		}
+	}
+
+	$scope.selected = function(url) {
+		if($location.path().substring(1) == url) { return "selected"; }
+		else { return ""; }
+	}
+
+	var d = new Date();
+	$scope.year = d.getFullYear();
+
+});
+
+/*** Home Controller ***/
+app.controller("HomeController", function($rootScope, $scope, $http) {
 	/* Work Experience Elements */
 	$scope.exp = [{
 		company: "Mercatus Technologies Inc.",
@@ -94,35 +123,10 @@ app.controller("MainController", function($rootScope, $scope, $http, $location) 
 		skill: [ "English", "Japanese", "Chinese", "Korean" ]
 	}];
 
-	$scope.href = function(url) {
-		switch(url) {
-			case "linkedin": 
-				window.open("http://ca.linkedin.com/pub/yongbin-wen/a4/aa0/360/", "_blank");
-				break;
-			case "github": 
-				window.open("http://github.com/ywen15", "_blank");
-				break;
-			case "email":
-				window.open("mailto:wen.yb15@gmail.com", "_self");
-				break;
-			default:
-				$location.path(url);
-		}
-	}
-
-	$scope.selected = function(url) {
-		if($location.path().substring(1) == url) { return "selected"; }
-		else { return ""; }
-	}
-
-	var d = new Date();
-	$scope.year = d.getFullYear();
-
 	var section = ["intro", "skill", "exp"];
 	var current = 0, target = 0, last = 0, middle = 0;
 
 	$(window).scroll(function() {
-
 		if(last == 0) {
 			last = $("#"+section[section.length-1]).offset().top;
 		}
@@ -135,7 +139,6 @@ app.controller("MainController", function($rootScope, $scope, $http, $location) 
 	});
 
 	$scope.scroll = function(direction) {
-		
 		if(middle == 0) {
 			middle = $("#"+section[1]).offset().top;
 		}
@@ -155,14 +158,68 @@ app.controller("MainController", function($rootScope, $scope, $http, $location) 
 		}
 		else { $scope.helpers.goTo(middle); }
 	}
-
 });
 
+/*** Project List ***/
 app.controller("ProjectController", function($rootScope, $scope, $http) {
 	$rootScope.title = "Project List";
-	$scope.msg = "Show This Message";
+
+	$scope.project1 = [{
+		name: "Airway Maintenance System",
+		description: "",
+		img: "airway_ss.png",
+		lang: [ "PHP", "MySQL", "HTML", "jQuery", "CSS" ],
+		order: 4
+	}, {
+		name: "Ticket Reporting System",
+		description: "",
+		img: "trs_ss.png",
+		lang: [ "PHP", "MySQL", "HTML", "javascript", "CSS" ],
+		order: 2
+	}, {
+		name: "Inventory Management",
+		description: "",
+		img: "im_ss.png",
+		lang: [ "PHP", "MySQL", "HTML", "javascript", "CSS" ],
+		order: 3
+	}];
+	$scope.project2 = [{
+		name: "Tweets Retriever",
+		description: "",
+		img: "tr_ss.png",
+		lang: [ "Twitter API", "jQuery", "HTML", "PHP", "CSS" ],
+		order: 1
+	}, {
+		name: "Infinate Scrolling Calendar",
+		description: "",
+		img: "comingsoon.png",
+		lang: ["AngularJS", "jQuery", "HTML", "CSS"],
+		order: 10
+	}, {
+		name: "Carousel Plugin",
+		description: "",
+		img: "comingsoon.png",
+		lang: [ "jQuery", "touchSwipe Plugin" ],
+		order: 20
+	}];
+	$scope.project3 = [{
+		name: "Pokemon Showdown Translator",
+		description: "",
+		img: "comingsoon.png",
+		lang: [ "Chrome APIs", "javascript" ],
+		order: 30
+	}, {
+		name: "Football League Manager",
+		description: "",
+		img: "comingsoon.png",
+		lang: [ "AngularJS", "jQueryUI", "HTML", "CSS" ],
+		order: 40
+	}];
+
+	$scope.projects = [$scope.project1, $scope.project2, $scope.project3];
 });
 
+/*** Blog Controller ***/
 app.controller("BlogController", function($rootScope, $scope, $http) {
 	$rootScope.title = "Blog";
 });

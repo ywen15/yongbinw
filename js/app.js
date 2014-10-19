@@ -7,7 +7,7 @@ app.config(function($routeProvider, $locationProvider) {
 		.when("/", {
 			title		: "About Me",
 			templateUrl : "home.html",
-			controller	: "MainController"
+			controller	: "HomeController"
 		})
 
 		.when("/project", {
