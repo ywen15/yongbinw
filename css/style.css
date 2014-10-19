@@ -84,6 +84,11 @@ html, body {
 	}
 
 /* Home Page */
+.alert-dismissible {
+	margin-right: 10px;
+	width: 400px;
+}
+
 #skill, footer {
 	padding-top: 40px;
 	background-image: linear-gradient( #595959, #777777 );
