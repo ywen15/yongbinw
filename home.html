@@ -1,0 +1,61 @@
+<div id="intro">
+	<h1><i class="fa fa-search"></i>about.me</h1>
+	<ul class="ch-grid">
+	    <li><!-- About Me -->
+	        <div class="ch-item">
+	        	<h3>About Me</h3>
+	            <div id="aboutme" class="ch-info">
+	                <p>I'm <strong>YB</strong> who has a great interest in web development and actively seeking contract or full-time employment.<br></p>
+	            </div>
+	        </div>
+	    </li>
+	    <li><!-- Education -->
+	        <div class="ch-item">
+	        	<h3>Education</h3>
+	            <div id="education" class="ch-info">
+	                <p><strong>University of Waterloo</strong><br>4th Year<br>Math / CompSci</p>
+	            </div>
+	        </div>
+	    </li>
+	    <li><!-- Contact -->
+	        <div class="ch-item">
+	        <h3>Contact</h3>
+	            <div id="contact" class="ch-info">                
+	                <p>Based in <strong>Toronto</strong>, ON<br><a href="mailto:wen.yb15@gmail.com">Gmail: wen.yb15</a><br>Skype: wenbin0215</p>
+	            </div>
+	        </div>
+	    </li>
+	</ul>
+</div>
+
+<div id="skill">
+	<h1><i class="fa fa-code"></i>technical.skills</h1>
+	<div class="row">
+		<div class="col-md-4" ng-repeat="skill in skilla">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3>{{skill.name}}</h3></div>
+				<div class="panel-body"><p ng-repeat="s in skill.skill"><i class="fa fa-chevron-right"></i>{{s}}</p></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-4" ng-repeat="skill in skillb">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3>{{skill.name}}</h3></div>
+				<div class="panel-body"><p ng-repeat="s in skill.skill"><i class="fa fa-chevron-right"></i>{{s}}</p></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="exp">
+	<h1><i class="fa fa-paw"></i>work.experience</h1>
+
+	<div class="panel panel-default" ng-repeat="e in exp">
+		<div class="panel-body">
+			<h3><i class="fa fa-tag fa-flip-horizontal"></i>{{e.company}}<small>{{e.info}}</small></h3>
+		</div>
+		<div class="panel-footer"><p ng-repeat="d in e.description"><i class="fa fa-check"></i>{{d}}</p></div>
+	</div>
+</div>
